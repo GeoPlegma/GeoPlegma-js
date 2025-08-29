@@ -1,0 +1,8 @@
+node_modules
+dist
+*.log
+.DS_Store
+.vscode
+.github
+.pnpm-lock.yaml
+src/native
