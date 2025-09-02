@@ -4,13 +4,13 @@
   "description": "A JavaScript library for GeoPlegma.",
   "type": "module",
   "license": "MIT",
-  "homepage": "https://github.com/author/library#readme",
+  "homepage": "https://github.com/GeoPlegma/GeoPlegma-js#readme",
   "bugs": {
-    "url": "https://github.com/author/library/issues"
+    "url": "https://github.com/GeoPlegma/GeoPlegma-js/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/author/library.git"
+    "url": "git+https://github.com/GeoPlegma/GeoPlegma-js.git"
   },
   "author": "João Manuel <joaocsmanuel@gmail.com>",
   "files": [
