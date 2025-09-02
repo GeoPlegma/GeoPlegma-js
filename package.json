@@ -1,18 +1,18 @@
 {
   "name": "geoplegma-js",
-  "version": "0.0.0",
-  "description": "A JavaScriipt library for GeoPlegma.",
+  "version": "0.0.0-beta",
+  "description": "A JavaScript library for GeoPlegma.",
   "type": "module",
   "license": "MIT",
-  "homepage": "https://github.com/author/library#readme",
+  "homepage": "https://github.com/GeoPlegma/GeoPlegma-js#readme",
   "bugs": {
-    "url": "https://github.com/author/library/issues"
+    "url": "https://github.com/GeoPlegma/GeoPlegma-js/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/author/library.git"
+    "url": "git+https://github.com/GeoPlegma/GeoPlegma-js.git"
   },
-  "author": "Author Name <author.name@mail.com>",
+  "author": "João Manuel <joaocsmanuel@gmail.com>",
   "files": [
     "dist"
   ],
@@ -29,6 +29,7 @@
   "scripts": {
     "build": "tsdown",
     "dev": "tsdown --watch",
+    "build-native": "scripts/dev.sh",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
     "release": "bumpp && npm publish"
