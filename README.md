@@ -46,16 +46,15 @@ console.log("from bbox: " + a.map((v) => v.id));
 npm install
 ```
 
-- Get the native binding files:
-
+- Get the native binding files, and run the script:
 ```bash
-npm run build-native
+./scripts/dev.sh
 ```
 
 This will:
-Build the .node files from GeoPlegma/gp-bindings/js.
-Copy them into GeoPlegma-js/native/.
-Let your JS code require('./native/something.node') without committing them.
+- Build the .node files from GeoPlegma/gp-bindings/js.
+- Copy them into GeoPlegma-js/native/.
+- Let your JS code require('./native/something.node') without committing them.
 
 - Run the unit tests:
 
