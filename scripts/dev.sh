@@ -12,7 +12,7 @@ mkdir -p "$NATIVE_DIR"
 echo "🚀 Building native bindings from GeoPlegma..."
 (
   cd "$BINDINGS_DIR"
-  napi build --output-dir $BINDINGS_DIR/dist
+  napi build --output-dir $BINDINGS_DIR/dist --release
 )
 
 echo "📦 Copying .node files to GeoPlegma-js/src/native/"

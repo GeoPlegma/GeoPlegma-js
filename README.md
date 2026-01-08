@@ -7,26 +7,26 @@ JavaScript package for GeoPlegma. At this point, it runs only DGGRID.
 Install the library.
 
 ```bash
-npm install GeoPlegma-js
+npm install geoplegma-js
 ```
 
 or
 
 ```bash
-yarn add GeoPlegma-js
+yarn add geoplegma-js
 ```
 
 or
 
 ```bash
-pnpm install GeoPlegma-js
+pnpm install geoplegma-js
 ```
 
 Example:
 
 ```js
 import { Dggrs } from "geoplegma-js";
-const g = new Dggrs("isea3h");
+const g = new Dggrs("IVEA7H");
 const rl = 3;
 const bbox = [
   [-10.0, -10.0],
@@ -47,11 +47,13 @@ npm install
 ```
 
 - Get the native binding files, and run the script:
+
 ```bash
 ./scripts/dev.sh
 ```
 
 This will:
+
 - Build the .node files from GeoPlegma/gp-bindings/js.
 - Copy them into GeoPlegma-js/native/.
 - Let your JS code require('./native/something.node') without committing them.
