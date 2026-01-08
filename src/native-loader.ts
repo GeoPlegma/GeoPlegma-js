@@ -10,10 +10,30 @@
 import { createRequire } from "module";
 import { fileURLToPath } from "url";
 import path from "path";
+import { existsSync } from "fs";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const require = createRequire(import.meta.url);
+if (typeof process === 'undefined' || !process.versions?.node) {
+  throw new Error('geoplegma-js requires Node.js');
+}
 
-const bindings = require(path.join(__dirname, "native/napi.node"));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const addonPath = path.join(__dirname, 'native', 'napi.node');
+
+if (!existsSync(addonPath)) {
+  throw new Error(`Native addon not found at: ${addonPath}`);
+}
+
+let bindings;
+
+try {
+  const require = createRequire(import.meta.url);
+  bindings = require(addonPath);
+} catch (requireError) {
+  // Fallback to process.dlopen for ESM compatibility
+  const module = { exports: {} };
+  process.dlopen(module, addonPath);
+  bindings = module.exports;
+}
 
 export default bindings;
