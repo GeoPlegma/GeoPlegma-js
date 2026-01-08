@@ -2,11 +2,11 @@ import { test } from "vitest";
 import { Dggrs } from "../src";
 
 test("Execute grid", () => {
-  const g = new Dggrs("isea3h");
+  const g = new Dggrs("IVEA7H");
   const rl = 3;
   const bbox = [
-    [-10.0, -10.0],
-    [10.0, 10.0],
+    [-77.0, 39.0],
+    [-76.0, 40.0],
   ];
   const a = g.zonesFromBbox(rl, bbox);
   let points = [

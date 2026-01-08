@@ -4,6 +4,6 @@ dist
 .DS_Store
 .vscode
 .github
-.pnpm-lock.yaml
+pnpm-lock.yaml
 src/native
 act
