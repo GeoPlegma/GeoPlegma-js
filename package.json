@@ -22,7 +22,13 @@
   "exports": {
     ".": {
       "node": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./client": {
+      "types": "./dist/client/nextjs/index.d.ts",
+      "server": "./dist/client/nextjs/server.js",
+      "default": "./dist/client/nextjs/index.js"
     }
   },
   "publishConfig": {
@@ -44,6 +50,8 @@
     "vitest": "^3.1.3"
   },
   "dependencies": {
-    "bindings": "^1.5.0"
+    "bindings": "^1.5.0",
+    "hono": "^4.11.7",
+    "next": "^16.1.5"
   }
 }
