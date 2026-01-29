@@ -58,8 +58,8 @@ export function decodeChildren(jsZones: any, zoneIndex: any) {
   const end =
     zoneIndex + 1 < jsZones.childrenOffsets.length
       ? jsZones.childrenOffsets[zoneIndex + 1]
-      : jsZones.childrenIdOffsets.length;
-  const buffer = new Float64Array(jsZones.childrenUtf8Ids);
+      : jsZones.childrenIdOffsets.length - 1;
+  const buffer = new Uint8Array(jsZones.childrenUtf8Ids);
 
   // childrenOffsets -> [0, 6, 12,...]
   // childrenIdOffsets -> [0, 18, 36,...]
@@ -85,7 +85,7 @@ export function decodeNeighbors(jsZones: any, zoneIndex: any) {
       ? jsZones.neighborsOffsets[zoneIndex + 1]
       : jsZones.neighborsIdOffsets.length;
 
-  const buffer = new Float64Array(jsZones.neighborsUtf8Ids);
+  const buffer = new Uint8Array(jsZones.neighborsUtf8Ids);
   for (let i = start; i < end; i++) {
     const nStart = jsZones.neighborsIdOffsets[i];
     const nEnd =

@@ -1,6 +1,6 @@
 {
   "name": "geoplegma-js",
-  "version": "0.0.1-beta",
+  "version": "0.0.4-beta",
   "description": "A JavaScript library for GeoPlegma.",
   "type": "module",
   "license": "MIT",
@@ -14,14 +14,16 @@
   },
   "author": "João Manuel <joaocsmanuel@gmail.com>",
   "files": [
-    "dist"
+    "dist",
+    "native/*.node"
   ],
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
+  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./package.json": "./package.json"
+    ".": {
+      "node": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
   },
   "publishConfig": {
     "access": "public"
