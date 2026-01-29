@@ -28,6 +28,7 @@ export class Dggrs extends Aux {
     super(name);
   }
   zonesFromBbox(refinement_level: number, bbox?: number[][], config?: Config) {
+   console.log(1)
     return decodeZones(super.zonesFromBbox(refinement_level, bbox, config));
   }
   zoneFromPoint(refinement_level: number, point?: number[], config?: Config) {
