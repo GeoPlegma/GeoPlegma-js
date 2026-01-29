@@ -1,6 +1,6 @@
 {
   "name": "geoplegma-js",
-  "version": "0.0.4-beta",
+  "version": "0.0.5-beta",
   "description": "A JavaScript library for GeoPlegma.",
   "type": "module",
   "license": "MIT",
@@ -25,10 +25,13 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
-    "./client": {
-      "types": "./dist/client/nextjs/index.d.ts",
-      "server": "./dist/client/nextjs/server.js",
-      "default": "./dist/client/nextjs/index.js"
+    "./next/server": {
+      "types": "./dist/next/index.d.ts",
+      "import": "./dist/next/server.js"
+    },
+    "./next/client": {
+      "types": "./dist/next/index.d.ts",
+      "import": "./dist/next/client.js"
     }
   },
   "publishConfig": {

@@ -5,7 +5,11 @@ import { fileURLToPath } from "url";
 
 export default defineConfig([
   {
-    entry: ["./src/index.ts", "./src/client/nextjs/index.ts"],
+    entry: {
+      index: "./src/index.ts",
+      "next/client": "./src/next/client.ts",
+      "next/server": "./src/next/server.ts",
+    },
     platform: "node",
     format: ["esm", "cjs"],
     dts: true,

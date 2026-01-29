@@ -13,7 +13,7 @@ import bindings from "./native-loader";
 
 const { Dggrs: Aux } = bindings;
 
-interface Config {
+export interface Config {
   region: boolean;
   center: boolean;
   vertexCount: boolean;
@@ -28,7 +28,6 @@ export class Dggrs extends Aux {
     super(name);
   }
   zonesFromBbox(refinement_level: number, bbox?: number[][], config?: Config) {
-   console.log(1)
     return decodeZones(super.zonesFromBbox(refinement_level, bbox, config));
   }
   zoneFromPoint(refinement_level: number, point?: number[], config?: Config) {
@@ -36,14 +35,14 @@ export class Dggrs extends Aux {
   }
   zonesFromParent(
     relative_depth: number,
-    parentZoneId: string,
-    config?: Config
+    parentZoneId: string | number,
+    config?: Config,
   ): any {
     return decodeZones(
-      super.zonesFromParent(relative_depth, parentZoneId, config)
+      super.zonesFromParent(relative_depth, parentZoneId, config),
     );
   }
-  zoneFromId(zoneId: string, config?: Config): any {
+  zoneFromId(zoneId: string | number, config?: Config): any {
     return decodeZones(super.zoneFromId(zoneId, config));
   }
 }
