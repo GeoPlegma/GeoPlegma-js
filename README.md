@@ -1,6 +1,6 @@
 # Introduction
 
-JavaScript package for GeoPlegma. At this point, it runs only DGGRID.
+JavaScript package for GeoPlegma.
 
 ## Get Started
 
@@ -35,7 +35,59 @@ const bbox = [
 const a = g.zonesFromBbox(rl, bbox);
 
 console.log("from bbox: " + a.map((v) => v.id));
-// from bbox: 307fffffffffffff,30bfffffffffffff,31bfffffffffffff,323fffffffffffff,327fffffffffffff,32bfffffffffffff,3a7fffffffffffff
+// from bbox: [ "B4-0-C", "B4-0-D", "B4-1-D", "B4-3-C", "B4-4-B", "B4-4-C", "B4-4-D" ]
+
+// other functions
+for (const p of points) {
+  const r = g.zoneFromPoint(rl, p);
+  console.log("from point: " + r[0].id);
+
+  const c = g.zonesFromParent(rl, r[0].id);
+  console.log("parent: " + c[0].id);
+
+  for (const child of c) {
+    console.log("children: " + child.id);
+  }
+
+  const i = g.zoneFromId(r[0].id);
+  console.log("from id: " + i.map((v) => v.id));
+}
+```
+
+We have the following available grids: `ISEA3HDGGRID`, `IGEO7`, `H3`, `ISEA3HDGGAL`, `IVEA3H`, `ISEA9R`, `IVEA9R`, `RTEA3H`, `RTEA9R`, `IVEA7H`, `IVEA7H_Z7`. The grids are provided by DGGRID, DGGAL, and H3. More will be added eventually.
+
+### Client-side
+
+The library works almost exclusively on the server-side frontends at the moment, specifically for DGGRID and DGGAL grids. To work on client-side frontends you will have to use the [nextjs](nextjs.org) framework. Eventually more wrappers to other frontend frameworks and libraries will be added (remixjs, vitejs, svelte, etc). Example:
+
+```js
+"use client";
+
+import { DggrsClient } from "geoplegma-js/next/client";
+import { useEffect } from "react";
+const g = new DggrsClient("IVEA7H");
+const rl = 3;
+const bbox = [
+  [-10.0, -10.0],
+  [10.0, 10.0],
+];
+
+let points = [
+  [19.96, 5.34],
+  [9.06, 52.98],
+  [-29.11, -15.28],
+];
+
+export default function Component() {
+  useEffect(() => {
+    const fetch = async () => {
+      const a = await g.zonesFromBbox(rl, bbox);
+      console.log(a.map((v) => v.id));
+    };
+  }, []);
+
+  return <div></div>;
+}
 ```
 
 ## Development
