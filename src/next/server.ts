@@ -33,7 +33,7 @@ interface ZonesParent {
 }
 
 interface ZonesId {
-  zone_id: string | number;
+  zone_ids: string[] | number[];
   config?: Config;
 }
 
@@ -42,10 +42,19 @@ export async function proxy(req: NextRequest) {
 
   if (req.method === "POST" || req.method === "PUT") {
     try {
-      let body = await req.json();
+      let body = await req.json() as Body;
       if (pathname.startsWith("/api/geoplegma")) {
         const route = pathname.replace("/api/geoplegma/", "");
-        const { grid_name, ...rest } = body as Body;
+
+        if (!body || typeof body !== "object") {
+          return NextResponse.json({ error: "Invalid body" }, { status: 400 });
+        }
+
+        if (typeof body.grid_name !== "string") {
+          return NextResponse.json({ error: "grid_name is required" }, { status: 400 });
+        }
+        
+        const { grid_name, ...rest } = body;
         const grid = new Dggrs(grid_name);
 
         switch (route) {
@@ -62,7 +71,7 @@ export async function proxy(req: NextRequest) {
             for (let index = 0, len = points.length; index < len; index++) {
               const point = points[index];
               response.push(
-                grid.zoneFromPoint(refinement_level, point, config),
+                ...grid.zoneFromPoint(refinement_level, point, config),
               );
             }
 
@@ -75,9 +84,18 @@ export async function proxy(req: NextRequest) {
               grid.zonesFromParent(relative_depth, parent_zone_id, config),
             );
           }
-          case "zone-from-id": {
-            const { zone_id, config } = rest as ZonesId;
-            return NextResponse.json(grid.zoneFromId(zone_id, config));
+          case "zones-from-ids": {
+            const { zone_ids, config } = rest as ZonesId;
+
+            const response = [];
+            for (let index = 0, len = zone_ids.length; index < len; index++) {
+              const zone_id = zone_ids[index];
+              response.push(
+                ...grid.zoneFromId(zone_id, config),
+              );
+            }
+
+            return NextResponse.json(response);
           }
           default:
             return NextResponse.json({ error: "Not found" }, { status: 404 });

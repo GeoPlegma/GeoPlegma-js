@@ -64,7 +64,7 @@ export class DggrsClient {
 
   async zonesFromBbox(
     refinement_level: number,
-    bbox?: number[][],
+    bbox: number[][],
     config?: Config,
   ) {
     return this.request("/zones-from-bbox", {
@@ -76,7 +76,7 @@ export class DggrsClient {
 
   async zonesFromPoints(
     refinement_level: number,
-    points?: number[],
+    points?: number[][],
     config?: Config,
   ) {
     return this.request("/zones-from-points", {
@@ -98,9 +98,9 @@ export class DggrsClient {
     });
   }
 
-  async zoneFromId(zone_id: string, config?: Config) {
-    return this.request("/zone-from-id", {
-      zone_id,
+  async zonesFromIds(zone_ids: string[] | number[], config?: Config) {
+    return this.request("/zones-from-ids", {
+      zone_ids,
       config,
     });
   }
