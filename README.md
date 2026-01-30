@@ -90,6 +90,20 @@ export default function Component() {
 }
 ```
 
+#### Next.js
+
+For next.js version >= 16, please create a file called `proxy.ts`, on the `root` level or inside `src`, depending on where your `app` folder is. Add this to the file:
+
+```ts
+export { proxy } from "geoplegma-js/next/server";
+
+export const config = {
+  matcher: ["/api/geoplegma/:path*"],
+};
+```
+
+For next.js version < 16, repeat the process, but instead of `proxy.ts`, create a file named `middleware.ts`.
+
 ## Development
 
 - Install dependencies:

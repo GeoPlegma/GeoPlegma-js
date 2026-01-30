@@ -74,14 +74,14 @@ export class DggrsClient {
     });
   }
 
-  async zoneFromPoint(
+  async zonesFromPoints(
     refinement_level: number,
-    point?: number[],
+    points?: number[],
     config?: Config,
   ) {
-    return this.request("/zone-from-point", {
+    return this.request("/zones-from-points", {
       refinement_level,
-      point,
+      points,
       config,
     });
   }

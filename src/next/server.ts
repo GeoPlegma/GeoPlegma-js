@@ -22,7 +22,7 @@ interface ZonesBbox {
 
 interface ZonesPoint {
   refinement_level: number;
-  point: number[];
+  points: number[][];
   config?: Config;
 }
 
@@ -55,12 +55,18 @@ export async function proxy(req: NextRequest) {
               grid.zonesFromBbox(refinement_level, bbox, config),
             );
           }
+          case "zones-from-points": {
+            const { refinement_level, points, config } = rest as ZonesPoint;
 
-          case "zone-from-point": {
-            const { refinement_level, point, config } = rest as ZonesPoint;
-            return NextResponse.json(
-              grid.zoneFromPoint(refinement_level, point, config),
-            );
+            const response = [];
+            for (let index = 0, len = points.length; index < len; index++) {
+              const point = points[index];
+              response.push(
+                grid.zoneFromPoint(refinement_level, point, config),
+              );
+            }
+
+            return NextResponse.json(response);
           }
           case "zones-from-parent": {
             const { relative_depth, parent_zone_id, config } =
