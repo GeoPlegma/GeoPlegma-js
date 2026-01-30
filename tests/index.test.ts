@@ -17,7 +17,6 @@ test("Execute grid", () => {
 
   console.log("from bbox: " + a.map((v) => v.id));
 
-  let ids = [];
   for (const p of points) {
     const r = g.zoneFromPoint(rl, p);
     console.log("from point: " + r[0].id);
