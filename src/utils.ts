@@ -46,6 +46,7 @@ export function decodeZones(zones: any) {
       region,
       children,
       neighbors,
+      area_sqm: zones.areaSqm[i]
     });
   }
 
