@@ -37,6 +37,10 @@ interface ZonesId {
   config?: Config;
 }
 
+interface ZoneCount {
+  refinement_level: number;
+}
+
 export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
@@ -53,7 +57,7 @@ export async function proxy(req: NextRequest) {
         if (typeof body.grid_name !== "string") {
           return NextResponse.json({ error: "grid_name is required" }, { status: 400 });
         }
-        
+
         const { grid_name, ...rest } = body;
         const grid = new Dggrs(grid_name);
 
@@ -96,6 +100,24 @@ export async function proxy(req: NextRequest) {
             }
 
             return NextResponse.json(response);
+          }
+          case "zone-count": {
+            const { refinement_level } =
+              rest as ZoneCount;
+            return NextResponse.json(
+              grid.zoneCount(refinement_level),
+            );
+          }
+          case "zone-info-level": {
+            return NextResponse.json(
+              {
+                min_refinement_level: grid.minRefinementLevel(),
+                maxRefinementLevel: grid.maxRefinementLevel(),
+                defaulRefinementLevel: grid.defaulRefinementLevel(),
+                maxRelativeDepth: grid.maxRelativeDepth(),
+                defaultRelativeDepth: grid.defaultRelativeDepth(),
+              }
+            );
           }
           default:
             return NextResponse.json({ error: "Not found" }, { status: 404 });

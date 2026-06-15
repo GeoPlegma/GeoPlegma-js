@@ -45,4 +45,22 @@ export class Dggrs extends Aux {
   zoneFromId(zoneId: string | number, config?: Config): any {
     return decodeZones(super.zoneFromId(zoneId, config));
   }
+  zoneCount(refinement_level:  number): number {
+    return super.zoneCount(refinement_level);
+  }
+  minRefinementLevel(): number {
+    return super.minRefinementLevel();
+  }
+  maxRefinementLevel(): number {
+    return super.maxRefinementLevel();
+  }
+  defaulRefinementLevel(): number {
+    return super.defaulRefinementLevel();
+  }
+  maxRelativeDepth(): number {
+    return super.maxRelativeDepth();
+  }
+  defaultRelativeDepth(): number {
+    return super.defaultRelativeDepth();
+  }
 }

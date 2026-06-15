@@ -24,10 +24,11 @@ export function decodeZones(zones: any) {
     // region coords
     const vertexCount = zones.vertexCount[i];
     const regionStart = zones.regionOffsets[i];
-    const bufferRegion = bufferCoords.subarray(
-      regionStart,
-      regionStart + vertexCount * 2
-    );
+    const regionEnd =
+      i + 1 < zones.regionOffsets.length
+        ? zones.regionOffsets[i + 1]
+        : bufferCoords.length;
+    const bufferRegion = bufferCoords.subarray(regionStart, regionEnd);
     const region = [];
     for (let j = 0; j < bufferRegion.length; j += 2) {
       region.push([bufferRegion[j], bufferRegion[j + 1]]);
@@ -46,6 +47,7 @@ export function decodeZones(zones: any) {
       region,
       children,
       neighbors,
+      area_sqm: zones.areaSqm[i]
     });
   }
 
@@ -96,5 +98,6 @@ export function decodeNeighbors(jsZones: any, zoneIndex: any) {
       new TextDecoder("utf-8").decode(buffer.subarray(nStart, nEnd))
     );
   }
+
   return neighbors;
 }
