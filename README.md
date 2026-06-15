@@ -129,15 +129,18 @@ const zones = await grid.zoneFromPoint(
 Generate child zones from a parent zone ID.
 ```ts
 zonesFromParent(
-  parentId: string,
+  relative_depth: number,
+  parentZoneId: string | number,
   config?: Config
 )
 ```
 ###### Parameters
-- `parentId` – Parent id of a zone.
+- `relative_depth` – How many levels below the parent to expand.
+- `parentZoneId` – ID of the parent zone.
 ###### Example
 ```ts
 const children = await grid.zonesFromParent(
+  1,
   "D4-1A7-A",
   { neighbors: true }
 );
@@ -147,23 +150,80 @@ const children = await grid.zonesFromParent(
 Return a single zone by ID.
 ```ts
 zoneFromId(
-  ids: string,
+  zoneId: string | number,
   config?: Config
 )
 ```
 ###### Parameters
-- `id` – Id of a zone.
+- `zoneId` – ID of the zone (string or numeric).
 ###### Example
 ```ts
-const children = await grid.zoneFromId([
-  "D4-1A7-B"​,
-  "D4-1A7-C",
-  "D4-1A7-D",
-  "D4-1A6-C",
-  "D4-18B-D",
-  "D4-18B-C",
-  "D4-18C-D"]
-);
+const zone = await grid.zoneFromId("D4-1A7-B");
+```
+
+##### zoneCount
+Return the total number of zones at a given refinement level.
+```ts
+zoneCount(
+  refinement_level: number
+): number
+```
+###### Parameters
+- `refinement_level` – Grid resolution level.
+###### Example
+```ts
+const count = grid.zoneCount(3);
+console.log(count); // e.g. 5882
+```
+
+##### minRefinementLevel
+Return the minimum supported refinement level for the grid.
+```ts
+minRefinementLevel(): number
+```
+###### Example
+```ts
+const min = grid.minRefinementLevel();
+```
+
+##### maxRefinementLevel
+Return the maximum supported refinement level for the grid.
+```ts
+maxRefinementLevel(): number
+```
+###### Example
+```ts
+const max = grid.maxRefinementLevel();
+```
+
+##### defaulRefinementLevel
+Return the default refinement level for the grid.
+```ts
+defaulRefinementLevel(): number
+```
+###### Example
+```ts
+const def = grid.defaulRefinementLevel();
+```
+
+##### maxRelativeDepth
+Return the maximum relative depth supported when expanding parent zones.
+```ts
+maxRelativeDepth(): number
+```
+###### Example
+```ts
+const maxDepth = grid.maxRelativeDepth();
+```
+
+##### defaultRelativeDepth
+Return the default relative depth used when expanding parent zones.
+```ts
+defaultRelativeDepth(): number
+```
+###### Example
+```ts
+const defaultDepth = grid.defaultRelativeDepth();
 ```
 
 ### Client-side API (Next.js)
@@ -299,16 +359,19 @@ const zones = await client.zonesFromPoints(
 Generate child zones from a parent zone ID.
 ```ts
 zonesFromParent(
-  parentId: string,
+  relative_depth: number,
+  parent_zone_id: string,
   config?: Config
 ): Promise<any>
 ```
 
 ###### Parameters
-- `parentId` – Parent id of a zone.
+- `relative_depth` – How many levels below the parent to expand.
+- `parent_zone_id` – ID of the parent zone.
 ###### Example
 ```ts
 const children = await client.zonesFromParent(
+  1,
   "D4-1A7-A",
   { neighbors: true }
 );
@@ -318,17 +381,17 @@ const children = await client.zonesFromParent(
 Fetch zones by their zone IDs.
 ```ts
 zonesFromIds(
-  ids: string[],
+  ids: string[] | number[],
   config?: Config
 ): Promise<any>
 ```
 
 ###### Parameters
-- `id` – Id of a zone.
+- `ids` – Array of zone IDs (string or numeric).
 
 ###### Example
 ```ts
-const children = await client.zonesFromIds([
+const zones = await client.zonesFromIds([
   "D4-1A7-B"​,
   "D4-1A7-C",
   "D4-1A7-D",
@@ -337,6 +400,40 @@ const children = await client.zonesFromIds([
   "D4-18B-C",
   "D4-18C-D"]
 );
+```
+
+##### zoneCount
+Return the total number of zones at a given refinement level.
+```ts
+zoneCount(
+  refinement_level: number
+): Promise<any>
+```
+
+###### Parameters
+- `refinement_level` – Grid resolution level.
+
+###### Example
+```ts
+const count = await client.zoneCount(3);
+```
+
+##### zoneInfoLevel
+Return level metadata for the grid: minimum, maximum and default refinement levels, and maximum and default relative depths.
+```ts
+zoneInfoLevel(): Promise<any>
+```
+
+###### Example
+```ts
+const info = await client.zoneInfoLevel();
+// {
+//   min_refinement_level: 1,
+//   maxRefinementLevel: 20,
+//   defaulRefinementLevel: 5,
+//   maxRelativeDepth: 3,
+//   defaultRelativeDepth: 1,
+// }
 ```
 
 ## Development

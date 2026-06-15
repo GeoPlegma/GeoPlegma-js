@@ -104,4 +104,14 @@ export class DggrsClient {
       config,
     });
   }
+
+  async zoneCount(refinement_level: number) {
+    return this.request("/zone-count", {
+      refinement_level,
+    });
+  }
+
+  async zoneInfoLevel() {
+    return this.request("/zone-info-level", {});
+  }
 }
