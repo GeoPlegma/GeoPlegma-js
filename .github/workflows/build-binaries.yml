@@ -9,7 +9,7 @@ on:
   workflow_dispatch: # only dispatchable once this trigger exists on main, but harmless to keep
 
 env:
-  GEOPLEGMA_REF: main # ref of GeoPlegma/GeoPlegma to build the napi bindings from
+  GEOPLEGMA_REF: master # ref of GeoPlegma/GeoPlegma to build the napi bindings from (its default branch)
 
 jobs:
   build:
