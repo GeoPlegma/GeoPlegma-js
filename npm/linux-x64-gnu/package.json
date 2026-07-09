@@ -1,0 +1,31 @@
+{
+  "name": "geoplegma-js-linux-x64-gnu",
+  "version": "0.0.12-beta",
+  "cpu": [
+    "x64"
+  ],
+  "main": "napi.linux-x64-gnu.node",
+  "files": [
+    "napi.linux-x64-gnu.node"
+  ],
+  "description": "A JavaScript library for GeoPlegma.",
+  "author": "João Manuel <joaocsmanuel@gmail.com>",
+  "homepage": "https://github.com/GeoPlegma/GeoPlegma-js#readme",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GeoPlegma/GeoPlegma-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GeoPlegma/GeoPlegma-js/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "os": [
+    "linux"
+  ],
+  "libc": [
+    "glibc"
+  ]
+}
