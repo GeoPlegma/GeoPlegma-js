@@ -43,7 +43,11 @@ jobs:
         run: npx napi version --npm-dir npm
 
       - name: Publish per-platform packages (optionalDependencies)
-        run: npx napi pre-publish --npm-dir npm
+        # --no-gh-release: this repo isn't a lerna-style monorepo, and napi
+        # pre-publish's default --gh-release/--tag-style=lerna combo tries to
+        # parse the release commit as a lerna multi-package commit, which
+        # doesn't match bumpp's `chore: release vX.Y.Z` commits and crashes.
+        run: npx napi pre-publish --npm-dir npm --no-gh-release
 
       - name: Publish main package
         run: npm publish
