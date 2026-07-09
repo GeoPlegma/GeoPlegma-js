@@ -4,7 +4,9 @@ on:
   push:
     branches:
       - main
+  pull_request: # lets this be verified on this PR before merge; drop this later if the 3-platform matrix gets too costly to run on every PR
   workflow_call:
+  workflow_dispatch: # only dispatchable once this trigger exists on main, but harmless to keep
 
 env:
   GEOPLEGMA_REF: main # ref of GeoPlegma/GeoPlegma to build the napi bindings from
