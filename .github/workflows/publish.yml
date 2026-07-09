@@ -8,8 +8,15 @@ permissions:
   contents: read
 
 jobs:
-  build-and-publish:
+  build-binaries:
+    uses: ./.github/workflows/build-binaries.yml
+
+  publish:
+    needs: build-binaries
     runs-on: ubuntu-22.04   # pin this, never ubuntu-latest
+    permissions:
+      id-token: write  # Required for OIDC
+      contents: read
     steps:
       - uses: actions/checkout@v4
 
@@ -17,12 +24,26 @@ jobs:
         with:
           node-version: 20
           registry-url: 'https://registry.npmjs.org'
-          package-manager-cache: false 
-
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
+          package-manager-cache: false
 
       - run: npm install
-      - run: npm run build   # your napi build command
+      - run: npm run build
 
-      - run: npm publish
+      - name: Download native binaries
+        uses: actions/download-artifact@v4
+        with:
+          pattern: bindings-*
+          path: artifacts
+          merge-multiple: true
+
+      - name: Distribute binaries into per-platform packages
+        run: npx napi artifacts --output-dir artifacts --npm-dir npm
+
+      - name: Sync per-platform package versions
+        run: npx napi version --npm-dir npm
+
+      - name: Publish per-platform packages (optionalDependencies)
+        run: npx napi pre-publish --npm-dir npm
+
+      - name: Publish main package
+        run: npm publish

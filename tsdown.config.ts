@@ -1,5 +1,5 @@
 import { defineConfig } from "tsdown";
-import { cpSync } from "fs";
+import { cpSync, existsSync } from "fs";
 import path, { join } from "path";
 import { fileURLToPath } from "url";
 
@@ -22,11 +22,16 @@ export default defineConfig([
     clean: true,
     async onSuccess() {
       const __dirname = path.dirname(fileURLToPath(import.meta.url));
-      // Copy native bindings folder into dist
-      cpSync(join(__dirname, "src/native"), join(__dirname, "dist/native"), {
-        recursive: true,
-      });
-      console.log("✅ Copied native bindings into dist/native");
+      const nativeDir = join(__dirname, "src/native");
+      // Only present locally after `npm run build-native` (see scripts/dev.sh).
+      // Not required for CI/publish builds, which rely on the prebuilt
+      // per-platform optionalDependencies packages instead.
+      if (existsSync(nativeDir)) {
+        cpSync(nativeDir, join(__dirname, "dist/native"), {
+          recursive: true,
+        });
+        console.log("✅ Copied native bindings into dist/native");
+      }
     },
   },
 ]);

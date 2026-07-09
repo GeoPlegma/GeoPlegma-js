@@ -1,0 +1,28 @@
+{
+  "name": "geoplegma-js-win32-x64-msvc",
+  "version": "0.0.12-beta",
+  "cpu": [
+    "x64"
+  ],
+  "main": "napi.win32-x64-msvc.node",
+  "files": [
+    "napi.win32-x64-msvc.node"
+  ],
+  "description": "A JavaScript library for GeoPlegma.",
+  "author": "João Manuel <joaocsmanuel@gmail.com>",
+  "homepage": "https://github.com/GeoPlegma/GeoPlegma-js#readme",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GeoPlegma/GeoPlegma-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GeoPlegma/GeoPlegma-js/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "os": [
+    "win32"
+  ]
+}

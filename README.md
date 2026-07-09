@@ -436,6 +436,16 @@ const info = await client.zoneInfoLevel();
 // }
 ```
 
+## Supported platforms
+
+Prebuilt native binaries are published as `optionalDependencies` for:
+
+- `linux-x64-gnu`
+- `darwin-arm64` (Apple Silicon)
+- `win32-x64-msvc`
+
+`npm install` picks the right one automatically. Other platforms will need to build the native addon from [GeoPlegma](https://github.com/GeoPlegma/GeoPlegma/tree/main/gp-bindings/js) themselves.
+
 ## Development
 
 - Install dependencies:
