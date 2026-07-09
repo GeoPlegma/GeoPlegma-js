@@ -47,7 +47,14 @@ jobs:
         # pre-publish's default --gh-release/--tag-style=lerna combo tries to
         # parse the release commit as a lerna multi-package commit, which
         # doesn't match bumpp's `chore: release vX.Y.Z` commits and crashes.
+        #
+        # NODE_AUTH_TOKEN: the platform packages (geoplegma-js-*) are new and
+        # don't have npm trusted publishing (OIDC) configured yet, so they
+        # need a classic token here. geoplegma-js itself already publishes
+        # fine via OIDC below.
         run: npx napi pre-publish --npm-dir npm --no-gh-release
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish main package
         run: npm publish
