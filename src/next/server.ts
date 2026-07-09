@@ -7,7 +7,9 @@
 // discretion. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-import { NextRequest, NextResponse } from "next/server";
+// next has no "exports" map, so strict Node ESM resolution (as opposed to a
+// bundler's lenient resolution) needs the literal .js extension here.
+import { NextRequest, NextResponse } from "next/server.js";
 import { Dggrs, type Config } from "../extend";
 
 interface Body {

@@ -61,10 +61,17 @@
   },
   "dependencies": {
     "bindings": "^1.5.0",
-    "hono": "^4.11.7",
+    "hono": "^4.11.7"
+  },
+  "peerDependencies": {
     "next": "^16.1.5"
   },
+  "peerDependenciesMeta": {
+    "next": {
+      "optional": true
+    }
+  },
   "optionalDependencies": {
-    "geoplegma-js-linux-x64-gnu": "0.0.12-beta"
+    "geoplegma-js-linux-x64-gnu": "0.0.17"
   }
 }
