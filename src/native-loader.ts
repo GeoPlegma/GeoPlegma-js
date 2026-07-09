@@ -27,10 +27,13 @@ const require = createRequire(import.meta.url);
 
 // Platform packages published under optionalDependencies, one per napi-rs target.
 // See npm/<platform>/package.json and .github/workflows/build-binaries.yml.
+//
+// Only linux-x64-gnu is built today: geoplegma depends on dggal-rust, which
+// bootstraps the ecere/eC toolchain via a POSIX make-based build.rs that
+// doesn't yet build on macOS/Windows. Add darwin-arm64/win32-x64-msvc back
+// here once that upstream build is portable.
 const PLATFORM_PACKAGES: Record<string, string> = {
   "linux-x64": "geoplegma-js-linux-x64-gnu/napi.linux-x64-gnu.node",
-  "darwin-arm64": "geoplegma-js-darwin-arm64/napi.darwin-arm64.node",
-  "win32-x64": "geoplegma-js-win32-x64-msvc/napi.win32-x64-msvc.node",
 };
 
 function loadAddon(addonPath: string): NativeBindings {

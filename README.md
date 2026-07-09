@@ -438,13 +438,11 @@ const info = await client.zoneInfoLevel();
 
 ## Supported platforms
 
-Prebuilt native binaries are published as `optionalDependencies` for:
+A prebuilt native binary is published as an `optionalDependency` for:
 
 - `linux-x64-gnu`
-- `darwin-arm64` (Apple Silicon)
-- `win32-x64-msvc`
 
-`npm install` picks the right one automatically. Other platforms will need to build the native addon from [GeoPlegma](https://github.com/GeoPlegma/GeoPlegma/tree/main/gp-bindings/js) themselves.
+`darwin-arm64` (Apple Silicon) and `win32-x64-msvc` are not yet supported: `geoplegma` depends on `dggal-rust`, which bootstraps the `ecere/eC` toolchain via a POSIX `make`-based build that doesn't build on macOS/Windows today. Other platforms will need to build the native addon from [GeoPlegma](https://github.com/GeoPlegma/GeoPlegma/tree/main/gp-bindings/js) themselves.
 
 ## Development
 

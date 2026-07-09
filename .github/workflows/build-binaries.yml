@@ -4,10 +4,13 @@ on:
   push:
     branches:
       - main
+  pull_request: # lets this be verified on this PR before merge; drop this later if the 3-platform matrix gets too costly to run on every PR
   workflow_call:
+  workflow_dispatch: # only dispatchable once this trigger exists on main, but harmless to keep
+
 
 env:
-  GEOPLEGMA_REF: main # ref of GeoPlegma/GeoPlegma to build the napi bindings from
+  GEOPLEGMA_REF: master # ref of GeoPlegma/GeoPlegma to build the napi bindings from (its default branch)
 
 jobs:
   build:
@@ -15,15 +18,15 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          # darwin-arm64 and win32-x64-msvc are not included: the geoplegma
+          # crate depends on dggal-rust, which bootstraps the ecere/eC
+          # toolchain via a POSIX make-based build.rs that only builds on
+          # Linux today (see GeoPlegma's own release-js.yml, which only ever
+          # ran on ubuntu-latest). Re-add once that upstream build is
+          # portable to macOS/Windows.
           - platform: linux-x64-gnu
             target: x86_64-unknown-linux-gnu
             os: ubuntu-22.04
-          - platform: darwin-arm64
-            target: aarch64-apple-darwin
-            os: macos-14
-          - platform: win32-x64-msvc
-            target: x86_64-pc-windows-msvc
-            os: windows-2022
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout GeoPlegma (Rust napi-rs source)
