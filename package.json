@@ -1,6 +1,6 @@
 {
   "name": "geoplegma-js",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "A JavaScript library for GeoPlegma.",
   "type": "module",
   "license": "MIT",
